@@ -236,15 +236,15 @@ void setup() {
     M5.Lcd.println("Cannot sync time. RTC may be inaccurate.");
   }
 
-  const char* const relays[] = {
+std::vector<String> relays = {
     "relay.nostr.wirednet.jp",  // 安定している日本のリレーを優先
     "relay.damus.io",
     "nos.lol"
   };
   int relayCount = sizeof(relays) / sizeof(relays[0]);
 
-  nostr.setLogging(true);  // デバッグ用にログを有効化
-  nostrRelayManager.setRelays(relays, relayCount);
+  nostr.setLogging(false);
+  nostrRelayManager.setRelays(relays);
   nostrRelayManager.setMinRelaysAndTimeout(1, 10000);  // 最小リレー数を1に変更
   nostrRelayManager.setEventCallback("ok", okEvent);
   nostrRelayManager.connect();
