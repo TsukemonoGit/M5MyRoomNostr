@@ -5,8 +5,11 @@ const dev = process.argv.includes('dev');
 
 const config = {
 	preprocess: vitePreprocess(),
-	kit: { adapter: adapter() ,paths: {
-			base: dev ? "" : '/m5myroomnostr'
+	kit: { adapter: adapter({  pages: 'build',
+      assets: 'build',
+      fallback: null}) ,paths: {
+			base: dev ? "" : '/m5myroomnostr',
+		
 		}}
 };
 
