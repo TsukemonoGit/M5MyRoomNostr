@@ -27,19 +27,19 @@
 		pressure?: Chart;
 	}
 
-	// Nostr公開鍵（npubからhexに変換済み）
+	// Nostr公開鍵
 	const PUBKEY_HEX: string = '86fd1c80c07debbc3d1929377b24d4bf65a85af268af15cda2acce454df670be';
 
 	// リレーURL
 	const RELAYS: string[] = [
+		'wss://yabu.me',
 		'wss://relay-jp.nostr.wirednet.jp',
-		'wss://nfrelay.app',
-		'wss://relay.nostr.wirednet.jp'
+		'wss://nfrelay.app'
 	];
 
 	// リアクティブな状態 - Svelte5のruneを使用
 	let weatherData = $state<WeatherData[]>([]);
-	let rxNostr: RxNostr = createRxNostr({
+	const rxNostr: RxNostr = createRxNostr({
 		verifier
 	});
 
@@ -378,15 +378,12 @@
 			});
 
 		// フィルターを送信
-		req.emit(
-			{
-				authors: [PUBKEY_HEX],
-				kinds: [1],
-				since: since,
-				limit: 500 // より多くのイベントを取得
-			},
-			{ relays: RELAYS }
-		);
+		req.emit({
+			authors: [PUBKEY_HEX],
+			kinds: [1],
+			since: since,
+			limit: 500 // より多くのイベントを取得
+		});
 	}
 
 	// 接続状態を監視
@@ -537,6 +534,14 @@
 				</div>
 			</div>
 		</div>
+		<div class="footer">
+			<a
+				href="https://github.com/TsukemonoGit/M5MyRoomNostr"
+				target="_blank"
+				rel="noreferrer noopener"
+				class="underline">GitHub</a
+			>
+		</div>
 	</div>
 </main>
 
@@ -681,5 +686,20 @@
 		padding: 20px;
 		position: relative;
 		height: 400px;
+	}
+
+	.footer {
+		text-align: center;
+		padding: 20px;
+		background: #f8f9fa;
+		border-top: 1px solid #e9ecef;
+	}
+	.footer a {
+		color: #495057;
+		text-decoration: none;
+		font-weight: 500;
+	}
+	.footer a:hover {
+		text-decoration: underline;
 	}
 </style>
