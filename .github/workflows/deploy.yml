@@ -32,15 +32,15 @@ jobs:
       - name: Install dependencies and build
         run: |
           cd app
-          npm install
           npm run build
+          echo "--- after build ---"
+          find . -type d -or -type f
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload build directory from app folder
-          path: "build/"
+          path: "app/build/"
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
