@@ -238,8 +238,9 @@ void setup() {
 
 std::vector<String> relays = {
     "relay.nostr.wirednet.jp",  // 安定している日本のリレーを優先
-    "relay.damus.io",
-    "nos.lol"
+    "relay-jp.nostr.wirednet.jp",
+    "yabu.me",
+    "nfrelay.app"
   };
   int relayCount = sizeof(relays) / sizeof(relays[0]);
 
