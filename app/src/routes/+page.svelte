@@ -464,7 +464,12 @@
 	<div class="container">
 		<div class="header">
 			<h1>🌡️まいへやデータビューア</h1>
-			<a class="underline" href="https://lumilumi.app/myRoom@tsukemonogit.github.io">
+			<a
+				class="underline"
+				href="https://lumilumi.app/myRoom@tsukemonogit.github.io"
+				rel="noreferrer noopener"
+				target="_blank"
+			>
 				Nostrまいへやアカウント
 			</a>
 		</div>
