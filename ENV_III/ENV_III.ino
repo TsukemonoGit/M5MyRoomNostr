@@ -236,7 +236,7 @@ void setup() {
     M5.Lcd.println("Cannot sync time. RTC may be inaccurate.");
   }
 
-std::vector<String> relays = {
+  std::vector<String> relays = {
     "relay.nostr.wirednet.jp",  // 安定している日本のリレーを優先
     "relay-jp.nostr.wirednet.jp",
     "yabu.me",
@@ -317,7 +317,7 @@ void loop() {
   // M5.Lcd.setTextColor(YELLOW);
   // M5.Lcd.setTextSize(1);
   int currentHour = current_time.hours;
- int currentMinute = current_time.minutes;
+  int currentMinute = current_time.minutes;
   // int nextPostHour = (currentHour + 1) % 24;
   // M5.Lcd.printf("次回投稿: %02d:00", nextPostHour);
 
