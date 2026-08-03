@@ -75,6 +75,14 @@ void postSensorDataToNostr(bool isManual = false) {
   postCount++;
 
   // 投稿メッセージの作成
+
+  //   message += "固定文字"
+  // → 容量不足時だけ再確保
+  // "文字列" + String(数値)
+  // → 一時的なString生成が発生する可能性が高い
+  // message.reserve(200)済み
+  // → 200バイト以内なら再確保なし
+
  String message;
  message.reserve(150);
 
