@@ -75,16 +75,20 @@ void postSensorDataToNostr(bool isManual = false) {
   postCount++;
 
   // 投稿メッセージの作成
-  String message = "";
-  // if (isManual) {
-  //   message += "🔴 手動投稿 #" + String(postCount) + "\n";
-  // } else {
-  //   message += "🟢 定期投稿 #" + String(postCount) + "\n";
-  // }
+ String message;
+ message.reserve(150);
 
-  message += "🌡️ 温度: " + String(currentTemperature, 1) + "°C\n";
-  message += "💧 湿度: " + String(currentHumidity, 1) + "%\n";
-  message += "📊 気圧: " + String(currentPressure, 1) + "hPa";
+message += "🌡️ 温度: ";
+message += String(currentTemperature, 1);
+message += "°C\n";
+
+message += "💧 湿度: ";
+message += String(currentHumidity, 1);
+message += "%\n";
+
+message += "📊 気圧: ";
+message += String(currentPressure, 1);
+message += "hPa";
 
   // // 現在時刻を追加
   // auto current_date = M5.Rtc.getDate();
@@ -95,8 +99,15 @@ void postSensorDataToNostr(bool isManual = false) {
   //            String(current_time.hours) + ":" +
   //            String(current_time.minutes) + " JST";
 
+
+  Serial.print("Posting: ");
+  Serial.println(message);
+  Serial.printf("message bytes: %d\n", message.length()); // この数字＋α を message.reserve(x); に設定する
+
+  Serial.printf("Heap before getNote: %d\n", ESP.getFreeHeap());
   String noteString = nostr.getNote(nsecHex, npubHex, now, message);
-  Serial.println("Posting: " + message);
+  Serial.printf("Heap after getNote: %d\n", ESP.getFreeHeap());
+  
   nostrRelayManager.enqueueMessage(noteString.c_str());
 
   // 投稿完了を待つ
@@ -237,10 +248,8 @@ void setup() {
   }
 
   std::vector<String> relays = {
-    "relay.nostr.wirednet.jp",  // 安定している日本のリレーを優先
-    "relay-jp.nostr.wirednet.jp",
-    "yabu.me",
-    "nfrelay.app"
+    "x.kojira.io",
+    "yabu.me"
   };
   int relayCount = sizeof(relays) / sizeof(relays[0]);
 
